@@ -1,56 +1,65 @@
+// Implement a trie data structure 
+
+import java.util.*;
+
 public class Trie {
 
     private class Node {
-        public Node [] children;
+        private Character a;
+        private HashMap<Character, Node> children;
+        private boolean end;
 
-
-        public Node () { 
-            children = new Node[26];
-        }
-        
-        public void add(String word) {
-            word = word.toLowerCase();
-            char c = word.charAt(0);
-            if(!hasChild(c));
-                children[c - 97] = new Node();
-
-            charToNode(c).add(word.substring(1));
+        public Node (char c) {
+            children = new HashMap<Character, Node>();
+            a = c;
         }
 
-        public boolean contains(String word) {
-            return hasChild(word.charAt(0)) && contains(word.substring(1));
+        public Node add(char c) {
+            Node next;
+            if (hasChild(c))
+                next = children.get(c);
+            else {
+                next = new Node(a);
+                children.put(c, next);
+            }
+
+            return next;      
+        }
+
+        public void setEnd(boolean end) {
+            this.end = end;
         }
 
         private boolean hasChild(char c) {
-            return (charToNode(c) != null);
+            return children.containsKey(c);
         }
 
-        private Node charToNode(char c) { 
-            return children[c - 97]; 
-        }
     }
 
     private Node head;
 
-    public Trie() {
-        head = new Node();
-    }
-
     public Trie(String word) { 
-        head = new Node();
-        head.add(word);
+        if (word.length() == 0)
+            throw new IllegalArgumentException();
+
+        head = new Node(word.charAt(0));
+        add(word);
     }
 
     public void add(String word) {
-        head.add(word);
+        Node current = head;
+        for (int i = 0; i < word.length(); i++) 
+            current = current.add(word.charAt(i));
+        
+        current.setEnd(true);
     }
 
     public boolean contains(String word) {
-        return head.contains(word);
+        return true; // not implemented
     }
 
     public static void main(String [] args) {
-        Trie trie = new Trie();
+        Trie trie = new Trie("hit");
         trie.add("hi");
         trie.contains("hi");
         trie.contains("boo");
