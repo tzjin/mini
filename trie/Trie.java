@@ -1,4 +1,20 @@
-// Implement a trie data structure 
+/* Author: Tony Jin
+ * Date: 2/26/14
+ * 
+ * Description: Implement a Trie data structure that stores
+ *              and returns strings.
+ *
+ * Dependencies: java.util.*
+ *
+ * Compile:     % javac Trie.java
+ * Runtime:     % java Trie
+ *
+ * Next steps:  Reduce read times by preclaculating values (doubly linked)
+ *              Method to return all possibilities (array vs linkedlist)
+ *              Sort output lexicographically
+ *              Sort output by most recent acess date
+ *
+ */
 
 import java.util.*;
 
@@ -24,6 +40,10 @@ public class Trie {
             }
 
             return next;      
+        }
+
+        public Node next(char c) {
+            return children.get(c);
         }
 
         public void setEnd(boolean end) {
@@ -55,13 +75,22 @@ public class Trie {
     }
 
     public boolean contains(String word) {
-        return true; // not implemented
+        Node current = head;
+        for (int i = 0; i < word.length(); i++) {
+            if (current == null)
+                return false;
+            current = current.next(word.charAt(i));
+        }
+
+        return current.end;
     }
+
+    public String []
 
     public static void main(String [] args) {
         Trie trie = new Trie("hit");
         trie.add("hi");
-        trie.contains("hi");
-        trie.contains("boo");
+        System.out.println(trie.contains("hi"));
+        System.out.println(trie.contains("boo"));
     }    
 }

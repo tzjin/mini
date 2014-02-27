@@ -1,13 +1,14 @@
 // Author: Tony Jin
 // Date: 2/25/14
 // 
-// Description: Runs through the article at http://en.wikipedia.org/wiki/Machine_learning 
+// Description: Runs through the given website url (originally 
+//              http://en.wikipedia.org/wiki/Machine_learning)
 //              and returns the 10 most common words.
 //
 // Dependencies: java.util.*, java.io.*
 //
 // Compile: javac Frequency.java
-// Run:     java Frequency.java
+// Run:     java Frequency http://someurl.com
 //
 
 // Pardon the pauses, I'm not sure how to compile on here, so I'll work in parallel locally
@@ -19,8 +20,9 @@ import java.util.regex.*;
 
 public class Frequency {
     public static void main(String[] args) throws Exception{
+        String url = args[0];
         // init scan
-        Scanner in = new Scanner(new URL("http://en.wikipedia.org/wiki/Machine_learning").openStream());
+        Scanner in = new Scanner(new URL(url).openStream());
         Map<String, Integer> map = new HashMap<String, Integer>();
         Pattern pattern = Pattern.compile(".*\\W+.*");
         
@@ -59,7 +61,7 @@ public class Frequency {
                 int i;
                 
                 // find index to insert value
-                for (i = vals.length - 1; i > 0; --i) 
+                for (i = vals.length - 1; i > 0; i--) 
                     if (value < vals[i])
                         break;
                 
