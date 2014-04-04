@@ -12,6 +12,11 @@ Takes URL as input and returns the 10 most used words on the web page in sorted 
 
 A prefix tree in Java that supports Strings. Planned use for implementing efficient autocomplete.
 
+
+#### Q
+
+The concise Queue. Written for lazy fingers. 
+
 ## Info
 
-Fun projects by Tony Jin. Released under the GNU GPLv3.
+Fun projects by me. Should anyone actually be interested in using this code, released under the GNU GPLv3.
